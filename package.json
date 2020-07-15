@@ -1,10 +1,10 @@
 {
   "name": "movie-info-finder",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Vue.js app to find information about a searched movie using TMDB API",
   "author": "Mohammadreza Amini",
   "license": "MIT",
-  "homepage": "",
+  "homepage": "https://mohammadreza99a.github.io/movie-info-finder/#/",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
