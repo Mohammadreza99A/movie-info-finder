@@ -83,7 +83,8 @@
                 <!-- Overview Modal -->
                 <div class="uk-flex-top" id="overviewModal" uk-modal>
                   <div
-                    class="uk-modal-dialog  uk-margin-auto-vertical uk-modal-body"
+                    v-bind:class="theme === 'dark' ? 'theme-dark' : ''"
+                    class="uk-modal-dialog uk-modal-body"
                     uk-overflow-auto
                   >
                     <button
@@ -141,7 +142,11 @@
                 </button>
                 <!-- Cast Modal -->
                 <div class="uk-flex-top" id="castModal" uk-modal>
-                  <div class="uk-modal-dialog uk-modal-body" uk-overflow-auto>
+                  <div
+                    v-bind:class="theme === 'dark' ? 'theme-dark' : ''"
+                    class="uk-modal-dialog uk-modal-body"
+                    uk-overflow-auto
+                  >
                     <button
                       class="uk-modal-close-default"
                       type="button"
@@ -185,7 +190,11 @@
                 </button>
                 <!-- Crew Modal -->
                 <div class="uk-flex-top" id="crewModal" uk-modal>
-                  <div class="uk-modal-dialog uk-modal-body" uk-overflow-auto>
+                  <div
+                    v-bind:class="theme === 'dark' ? 'theme-dark' : ''"
+                    class="uk-modal-dialog uk-modal-body"
+                    uk-overflow-auto
+                  >
                     <button
                       class="uk-modal-close-default"
                       type="button"
@@ -297,6 +306,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import Spinner from '../components/layout/Spinner';
 import SimilarMovies from '../components/movies/SimilarMovies';
 import axios from 'axios';
@@ -382,6 +392,12 @@ export default {
       });
       window.scrollTo(0, 0);
     },
+  },
+
+  computed: {
+    ...mapGetters({
+      theme: 'getTheme',
+    }),
   },
 
   watch: {

@@ -48,6 +48,12 @@ footer {
   justify-content: center;
 }
 
+.uk-button-secondary {
+  background-color: #222 !important;
+  color: #fff !important;
+  border: 1px solid transparent !important;
+}
+
 .uk-container {
   max-width: 100%;
 }

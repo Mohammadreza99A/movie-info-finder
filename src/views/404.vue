@@ -52,12 +52,20 @@ export default {
   top: 8%;
 }
 
+.theme-dark .err {
+  color: #fff !important;
+}
+
 .far {
   position: absolute;
   font-size: 8.5rem;
   left: 42%;
   top: 15%;
   color: #000;
+}
+
+.theme-dark .far {
+  color: #fff !important;
 }
 
 .err2 {
@@ -67,6 +75,10 @@ export default {
   position: absolute;
   left: 68%;
   top: 8%;
+}
+
+.theme-dark .err2 {
+  color: #fff !important;
 }
 
 .msg {

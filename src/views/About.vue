@@ -2,11 +2,14 @@
   <div class="uk-text-center">
     <h1 class="uk-text-center uk-margin-top">About Page</h1>
     <p class="uk-text-emphasis">
-      An Application for finding all sorts of information regarding movies. This
-      application uses TMDB API in order to get information for a given movie.
+      An Application for finding all sorts of information regarding movies.
     </p>
-    <h6>Developper: Mohammadreza Amini</h6>
-    <h6>Email: mohammadreza99a@yahoo.com</h6>
+    <p class="uk-text-emphasis">
+      This application uses TMDB API in order to get information for a given
+      movie.
+    </p>
+    <h4>Developper: Mohammadreza Amini</h4>
+    <h4>Email: mohammadreza99a@yahoo.com</h4>
     <a
       href="https://www.facebook.com/mohammadreza.amini.33"
       rel="noopener noreferrer"
@@ -42,5 +45,13 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.theme-dark h1 {
+  color: azure;
+}
+
+.theme-dark h4 {
+  color: azure;
 }
 </style>
