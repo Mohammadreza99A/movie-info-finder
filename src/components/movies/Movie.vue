@@ -9,7 +9,8 @@
       </div>
       <div class="uk-card-body">
         <div class="uk-card-badge uk-label ">{{ movie.vote_average }}</div>
-        <h3 class="uk-card-title">{{ movie.title }}</h3>
+        <h3 v-if="movie.title" class="uk-card-title">{{ movie.title }}</h3>
+        <h3 v-else-if="movie.name">{{ movie.name }}</h3>
       </div>
       <div class="uk-card-footer">
         <button

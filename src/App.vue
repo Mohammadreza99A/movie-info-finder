@@ -1,6 +1,9 @@
 <template>
   <div id="app" v-bind:class="theme === 'dark' ? 'theme-dark' : ''">
     <Navbar />
+    <div v-if="$router.currentRoute.name !== 'Home'" class="uk-container">
+      <SearchForm />
+    </div>
     <div class="content">
       <router-view />
     </div>
@@ -12,12 +15,14 @@
 import { mapGetters, mapActions } from 'vuex';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
+import SearchForm from './components/layout/SearchForm';
 
 export default {
   name: 'App',
   components: {
     Navbar,
     Footer,
+    SearchForm,
   },
   methods: { ...mapActions(['changePrefredTheme']) },
   computed: {
@@ -45,10 +50,16 @@ export default {
 html,
 body {
   height: 100%;
+  overflow-x: hidden;
 }
 
 .theme-dark {
   background-color: #1a1919;
+  color: #fff !important;
+}
+
+.theme-dark body {
+  background-color: #1a1919 !important;
   color: #fff !important;
 }
 
@@ -60,12 +71,16 @@ body {
   color: rgba(248, 246, 246, 0.931) !important;
 }
 
+.theme-dark h1 {
+  color: #fff9f9 !important;
+}
+
 .theme-dark h4 {
-  color: #fff9f9;
+  color: #fff9f9 !important;
 }
 
 .theme-dark h3 {
-  color: #fff9f9;
+  color: #fff9f9 !important;
 }
 
 .theme-dark .uk-card-default {
@@ -78,22 +93,27 @@ body {
 }
 
 .theme-dark .uk-button-secondary {
-  background-color: #fff;
-  color: #000;
+  background-color: #fff !important;
+  color: #000 !important;
+}
+
+.theme-dark .uk-button-secondary:hover {
+  background-color: #fff !important;
+  color: #000 !important;
 }
 
 .theme-dark .uk-button-default {
-  background-color: rgb(88, 87, 87);
-  color: rgb(255, 255, 255);
+  background-color: rgb(88, 87, 87) !important;
+  color: rgb(255, 255, 255) !important;
 }
 
 .theme-dark .uk-accordion-title {
-  color: #fff;
+  color: #fff !important;
 }
 
 .theme-dark .uk-accordion-title::before {
-  background-color: rgb(209, 204, 204);
-  color: #000;
+  background-color: rgb(209, 204, 204) !important;
+  color: #000 !important;
 }
 
 .theme-dark .uk-list-striped > li:nth-of-type(2n + 1) {

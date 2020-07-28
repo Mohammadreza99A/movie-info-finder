@@ -30,6 +30,14 @@ const routes = [
     },
   },
   {
+    path: '/search',
+    name: 'SearchResults',
+    component: () => import('../views/SearchResults.vue'),
+    meta: {
+      title: 'Movie Info Finder | Search Results',
+    },
+  },
+  {
     path: '*',
     name: '404',
     component: () => import('../views/404.vue'),
