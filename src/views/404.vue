@@ -1,23 +1,24 @@
 <template>
-  <div class="body uk-contanier">
-    <div class="mainbox">
-      <div class="err">4</div>
-      <i class="far fa-question-circle fa-spin"></i>
-      <div class="err2">4</div>
-      <div class="msg">
-        Maybe this page moved? Got deleted? Is hiding out in quarantine? Never
-        existed in the first place?
-        <p>
-          <button
-            type="button"
-            v-on:click="goToHome"
-            class="uk-margin-top uk-button uk-button-secondary"
-          >
-            <i class="fas fa-home"></i> Go Home
-          </button>
-        </p>
-      </div>
-    </div>
+  <div
+    uk-height-viewport="offset-top: true"
+    class="body uk-contanier uk-text-center"
+  >
+    <h1
+      class="uk-text-lead uk-text-large uk-text-bold uk-text-uppercase uk-text-emphasis"
+    >
+      4<strong class="far fa-question-circle"></strong>4
+    </h1>
+    <p class="uk-text-emphasis">
+      Maybe this page moved? Got deleted? Is hiding out in quarantine? Never
+      existed in the first place?
+    </p>
+    <button
+      type="button"
+      v-on:click="goToHome"
+      class="uk-margin-top uk-button uk-button-secondary"
+    >
+      <i class="fas fa-home"></i> Go Home
+    </button>
   </div>
 </template>
 
@@ -36,58 +37,7 @@ export default {
 </script>
 
 <style scoped>
-.mainbox {
-  margin: auto;
-  height: 100vh;
-  width: 100vh;
-  position: relative;
-}
-
-.err {
-  color: #000;
-  font-family: 'Nunito Sans', sans-serif;
-  font-size: 11rem;
-  position: absolute;
-  left: 20%;
-  top: 8%;
-}
-
-.theme-dark .err {
-  color: #fff !important;
-}
-
-.far {
-  position: absolute;
-  font-size: 8.5rem;
-  left: 42%;
-  top: 15%;
-  color: #000;
-}
-
-.theme-dark .far {
-  color: #fff !important;
-}
-
-.err2 {
-  color: #000;
-  font-family: 'Nunito Sans', sans-serif;
-  font-size: 11rem;
-  position: absolute;
-  left: 68%;
-  top: 8%;
-}
-
-.theme-dark .err2 {
-  color: #fff !important;
-}
-
-.msg {
-  text-align: center;
-  font-family: 'Nunito Sans', sans-serif;
-  font-size: 1.6rem;
-  position: absolute;
-  left: 16%;
-  top: 45%;
-  width: 75%;
+h1 {
+  font-size: 6rem;
 }
 </style>

@@ -5,8 +5,11 @@
       An Application for finding all sorts of information regarding movies.
     </p>
     <p class="uk-text-emphasis">
-      This application uses TMDB API in order to get information for a given
-      movie.
+      This application uses
+      <a href="https://developers.themoviedb.org/3/" target="_blank"
+        >TMDB API</a
+      >
+      in order to get information for a given movie.
     </p>
     <h4>Developper: Mohammadreza Amini</h4>
     <h4>Email: mohammadreza99a@yahoo.com</h4>
