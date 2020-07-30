@@ -1,6 +1,5 @@
 <template>
   <div class="uk-container">
-    <!-- <div v-if="true"> -->
     <button
       type="button"
       v-on:click="goBack"
@@ -31,6 +30,7 @@
       <h2 class="uk-text-bold uk-text-capitalize uk-text-emphasis">
         {{ movie.title }}
       </h2>
+      <MovieGenres v-bind:genres="movie.genres" />
       <div
         class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin"
         uk-grid
@@ -50,201 +50,37 @@
               <li>
                 Rating: <span class="uk-badge">{{ movie.vote_average }}</span>
               </li>
-              <li>
-                <ul class="uk-margin-remove-top" uk-accordion>
-                  <li>
-                    <a class="uk-accordion-title uk-text-emphasis" href="#"
-                      >Genres</a
-                    >
-                    <div class="uk-accordion-content">
-                      <ul class="uk-list uk-list-striped">
-                        <li
-                          v-for="genre in movie.genres"
-                          :key="genre.id"
-                          class="uk-text-emphasis"
-                        >
-                          {{ genre.name }}
-                        </li>
-                      </ul>
-                    </div>
-                  </li>
-                </ul>
-              </li>
               <li for="">Revenue: {{ formatCurr(movie.revenue) }}</li>
               <li for="">Budget: {{ formatCurr(movie.budget) }}</li>
               <li>
-                <button
-                  uk-toggle="target: #overviewModal"
-                  type="button"
-                  class="uk-button uk-button-default uk-width-1-1 uk-margin-small-bottom"
-                >
-                  Overview
-                </button>
-                <!-- Overview Modal -->
-                <div class="uk-flex-top" id="overviewModal" uk-modal>
-                  <div
-                    v-bind:class="theme === 'dark' ? 'theme-dark' : ''"
-                    class="uk-modal-dialog uk-modal-body"
-                    uk-overflow-auto
-                  >
-                    <button
-                      class="uk-modal-close-default"
-                      type="button"
-                      uk-close
-                    ></button>
-                    <h2 class="uk-modal-title">Overview</h2>
-                    <p class="uk-text-emphasis">
-                      {{ movie.overview }}
-                    </p>
-                    <p class="uk-text-right">
-                      <button
-                        class="uk-button uk-button-default uk-modal-close"
-                        type="button"
-                      >
-                        Close
-                      </button>
-                    </p>
-                  </div>
-                </div>
+                <MovieOverview
+                  v-bind:overview="movie.overview"
+                  v-bind:theme="theme"
+                />
               </li>
               <li>
                 Original Language:
                 {{ originalLanguage(movie.original_language) }}
               </li>
               <li>
-                <ul class="uk-margin-remove-top" uk-accordion>
-                  <li>
-                    <a class="uk-accordion-title uk-text-emphasis" href="#"
-                      >Spoken Languages</a
-                    >
-                    <div class="uk-accordion-content">
-                      <ul class="uk-list uk-list-striped">
-                        <li
-                          v-for="lang in movie.spoken_languages"
-                          :key="lang.iso_639_1"
-                          class="uk-text-emphasis"
-                        >
-                          {{ originalLanguage(lang.iso_639_1) }}
-                        </li>
-                      </ul>
-                    </div>
-                  </li>
-                </ul>
+                <MovieSpokenLang
+                  v-bind:spoken_languages="movie.spoken_languages"
+                />
               </li>
               <li>Runtime: {{ getTime(movie.runtime) }}</li>
               <li>
-                <button
-                  uk-toggle="target: #castModal"
-                  type="button"
-                  class="uk-button uk-button-default uk-width-1-1 uk-margin-small-bottom"
-                >
-                  Cast
-                </button>
-                <!-- Cast Modal -->
-                <div class="uk-flex-top" id="castModal" uk-modal>
-                  <div
-                    v-bind:class="theme === 'dark' ? 'theme-dark' : ''"
-                    class="uk-modal-dialog uk-modal-body"
-                    uk-overflow-auto
-                  >
-                    <button
-                      class="uk-modal-close-default"
-                      type="button"
-                      uk-close
-                    ></button>
-                    <h2 class="uk-modal-title">
-                      Cast <span class="uk-text-muted">of</span>
-                      {{ movie.title }}
-                    </h2>
-                    <div
-                      class="uk-card uk-card-body uk-padding-remove-horizontal"
-                    >
-                      <ul
-                        class="uk-list uk-text-center uk-list-striped uk-list-large uk-text-emphasis"
-                      >
-                        <li v-for="cast in cast" :key="cast.id">
-                          {{ cast.name }}
-                          <small class="uk-text-muted">as</small>
-                          {{ cast.character }}
-                        </li>
-                      </ul>
-                    </div>
-                    <p class="uk-text-right">
-                      <button
-                        class="uk-button uk-button-default uk-modal-close uk-margin-bottom"
-                        type="button"
-                      >
-                        Close
-                      </button>
-                    </p>
-                  </div>
-                </div>
+                <MovieCast
+                  v-bind:title="movie.title"
+                  v-bind:cast="cast"
+                  v-bind:theme="theme"
+                />
               </li>
               <li>
-                <button
-                  uk-toggle="target: #crewModal"
-                  type="button"
-                  class="uk-button uk-button-default uk-width-1-1 uk-margin-small-bottom"
-                >
-                  Crew
-                </button>
-                <!-- Crew Modal -->
-                <div class="uk-flex-top" id="crewModal" uk-modal>
-                  <div
-                    v-bind:class="theme === 'dark' ? 'theme-dark' : ''"
-                    class="uk-modal-dialog uk-modal-body"
-                    uk-overflow-auto
-                  >
-                    <button
-                      class="uk-modal-close-default"
-                      type="button"
-                      uk-close
-                    ></button>
-                    <h2 class="uk-modal-title">
-                      Crew <span class="uk-text-muted">of</span>
-                      {{ movie.title }}
-                    </h2>
-                    <div
-                      class="uk-card uk-card-body uk-padding-remove-horizontal"
-                    >
-                      <!-- printing departments and crew that work there -->
-                      <ul
-                        class="uk-list uk-text-center uk-list-striped uk-list-large uk-text-emphasis"
-                      >
-                        <li v-for="dept in crew" :key="dept.dept">
-                          <ul uk-accordion>
-                            <li>
-                              <a class="uk-accordion-title" href="#">
-                                {{ dept.dept }}
-                              </a>
-                              <div class="uk-accordion-content">
-                                <ul class="uk-list uk-list-striped">
-                                  <li
-                                    v-for="crew in dept.workers"
-                                    :key="crew.id"
-                                    class="uk-text-emphasis"
-                                  >
-                                    {{ crew.name }}
-                                    <small class="uk-text-muted"> as </small>
-                                    {{ crew.job }}
-                                  </li>
-                                </ul>
-                              </div>
-                            </li>
-                          </ul>
-                        </li>
-                      </ul>
-                    </div>
-                    <p class="uk-text-right">
-                      <button
-                        class="uk-button uk-button-default uk-modal-close uk-margin-bottom"
-                        type="button"
-                      >
-                        Close
-                      </button>
-                    </p>
-                  </div>
-                </div>
+                <MovieCrew
+                  v-bind:theme="theme"
+                  v-bind:title="movie.title"
+                  v-bind:crew="crew"
+                />
               </li>
               <li v-if="movie.belongs_to_collection">
                 Collection:
@@ -253,44 +89,14 @@
                 }}</span>
               </li>
               <li>
-                <ul class="uk-margin-remove-top" uk-accordion>
-                  <li>
-                    <a class="uk-accordion-title uk-text-emphasis" href="#"
-                      >Production Contries</a
-                    >
-                    <div class="uk-accordion-content">
-                      <ul class="uk-list uk-list-striped">
-                        <li
-                          v-for="country in movie.production_countries"
-                          :key="country.iso_3166_1"
-                          class="uk-text-emphasis"
-                        >
-                          {{ country.name }}
-                        </li>
-                      </ul>
-                    </div>
-                  </li>
-                </ul>
+                <MovieProCountries
+                  v-bind:production_countries="movie.production_countries"
+                />
               </li>
               <li>
-                <ul class="uk-margin-remove-top" uk-accordion>
-                  <li>
-                    <a class="uk-accordion-title uk-text-emphasis" href="#"
-                      >Production Companies</a
-                    >
-                    <div class="uk-accordion-content">
-                      <ul class="uk-list uk-list-striped">
-                        <li
-                          v-for="company in movie.production_companies"
-                          :key="company.id"
-                          class="uk-text-emphasis"
-                        >
-                          {{ company.name }}
-                        </li>
-                      </ul>
-                    </div>
-                  </li>
-                </ul>
+                <MovieProCompanies
+                  v-bind:production_companies="movie.production_companies"
+                />
               </li>
             </ul>
           </div>
@@ -309,6 +115,13 @@
 import { mapGetters } from 'vuex';
 import Spinner from '../components/layout/Spinner';
 import SimilarMovies from '../components/movies/SimilarMovies';
+import MovieGenres from '../components/movies/MovieGenres';
+import MovieOverview from '../components/movies/MovieOverview';
+import MovieSpokenLang from '../components/movies/MovieSpokenLang';
+import MovieCast from '../components/movies/MovieCast';
+import MovieCrew from '../components/movies/MovieCrew';
+import MovieProCountries from '../components/movies/MovieProCountries';
+import MovieProCompanies from '../components/movies/MovieProCompanies';
 import axios from 'axios';
 import moment from 'moment';
 import ISO6391 from 'iso-639-1';
@@ -320,6 +133,13 @@ export default {
   components: {
     Spinner,
     SimilarMovies,
+    MovieGenres,
+    MovieOverview,
+    MovieSpokenLang,
+    MovieCast,
+    MovieCrew,
+    MovieProCountries,
+    MovieProCompanies,
   },
 
   data() {
