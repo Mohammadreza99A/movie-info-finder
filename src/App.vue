@@ -1,9 +1,7 @@
 <template>
   <div id="app" v-bind:class="theme === 'dark' ? 'theme-dark' : ''">
     <Navbar />
-    <div v-if="$router.currentRoute.name !== 'Home'" class="uk-container">
-      <SearchForm />
-    </div>
+    <div v-if="$router.currentRoute.name !== 'Home'" class="uk-container"></div>
     <div class="content">
       <router-view />
     </div>
@@ -15,14 +13,12 @@
 import { mapGetters, mapActions } from 'vuex';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
-import SearchForm from './components/layout/SearchForm';
 
 export default {
   name: 'App',
   components: {
     Navbar,
     Footer,
-    SearchForm,
   },
   methods: { ...mapActions(['changePrefredTheme']) },
   computed: {
