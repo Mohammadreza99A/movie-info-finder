@@ -1,5 +1,5 @@
 <template>
-  <div class="uk-flex uk-flex-center">
+  <div class="uk-flex uk-flex-center vh-100">
     <span uk-spinner="ratio: 4.5"></span>
   </div>
 </template>
@@ -20,5 +20,9 @@ img {
 
 .container {
   margin-top: 40%;
+}
+
+.vh-100 {
+  min-height: 100vh;
 }
 </style>
