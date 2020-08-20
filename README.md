@@ -20,6 +20,9 @@ npm install
 
 # Serve on localhost:8080/#
 npm run serve
+
+# Build for production
+npm run build
 ```
 
 ## App Info
@@ -35,7 +38,7 @@ mohammadreza99a@yahoo.com
 
 ### Version
 
-1.0.2
+1.0.3
 
 ### License
 
