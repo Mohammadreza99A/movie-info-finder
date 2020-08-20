@@ -19,6 +19,7 @@
           <Movie v-bind:movie="movie" />
         </div>
       </div>
+      <SearchPagination />
     </div>
   </div>
 </template>

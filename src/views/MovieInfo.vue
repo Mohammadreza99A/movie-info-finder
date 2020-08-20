@@ -14,9 +14,7 @@
           !crew ||
           crew.length === 0 ||
           !cast ||
-          cast.length === 0 ||
-          !similar ||
-          similar.length === 0
+          cast.length === 0
       "
     >
       <div class="uk-margin-xlarge-top uk-margin-xlarge-bottom">
@@ -106,7 +104,9 @@
         </div>
       </div>
 
-      <SimilarMovies v-bind:movies="similar" :goToMovie="goToMovie" />
+      <div v-if="similar && similar.length !== 0">
+        <SimilarMovies v-bind:movies="similar" :goToMovie="goToMovie" />
+      </div>
     </div>
   </div>
 </template>
@@ -152,39 +152,44 @@ export default {
   },
 
   methods: {
-    async fetchData() {
-      const movieRes = await axios.get(
-        `https://api.themoviedb.org/3/movie/${this.$route.params.id}?api_key=${process.env.VUE_APP_THEMOVIEDB_API_KEY}&language=en-US`
-      );
+    fetchData() {
+      axios
+        .get(
+          `https://api.themoviedb.org/3/movie/${this.$route.params.id}?api_key=${process.env.VUE_APP_THEMOVIEDB_API_KEY}&language=en-US`
+        )
+        .then((res) => (this.movie = res.data))
+        .catch((err) => console.log(err));
 
-      const creditRes = await axios.get(
-        ` https://api.themoviedb.org/3/movie/${this.$route.params.id}/credits?api_key=${process.env.VUE_APP_THEMOVIEDB_API_KEY}`
-      );
-
-      const similarMovies = await axios.get(
-        `https://api.themoviedb.org/3/movie/${this.$route.params.id}/similar?api_key=${process.env.VUE_APP_THEMOVIEDB_API_KEY}&language=en-US&page=1`
-      );
-
-      this.movie = movieRes.data;
-      this.cast = creditRes.data.cast;
-      this.similar = similarMovies.data.results;
-
-      // sorting the crew by departement
-      creditRes.data.crew.forEach((crew) => {
-        if (this.crew.filter((e) => e.dept === crew.department).length > 0) {
-          let c = this.crew.find((e) => e.dept === crew.department);
-          // check for duplicate first
-          const index = c.workers.findIndex((w) => w.id === crew.id);
-          if (index === -1) {
-            c.workers.push({ id: crew.id, job: crew.job, name: crew.name });
-          }
-        } else {
-          this.crew.push({
-            dept: crew.department,
-            workers: [{ id: crew.id, job: crew.job, name: crew.name }],
+      axios
+        .get(
+          ` https://api.themoviedb.org/3/movie/${this.$route.params.id}/credits?api_key=${process.env.VUE_APP_THEMOVIEDB_API_KEY}`
+        )
+        .then((res) => {
+          this.cast = res.data.cast; // sorting the crew by departement
+          res.data.crew.forEach((crew) => {
+            if (
+              this.crew.filter((e) => e.dept === crew.department).length > 0
+            ) {
+              let c = this.crew.find((e) => e.dept === crew.department);
+              // check for duplicate first
+              const index = c.workers.findIndex((w) => w.id === crew.id);
+              if (index === -1) {
+                c.workers.push({ id: crew.id, job: crew.job, name: crew.name });
+              }
+            } else {
+              this.crew.push({
+                dept: crew.department,
+                workers: [{ id: crew.id, job: crew.job, name: crew.name }],
+              });
+            }
           });
-        }
-      });
+        });
+
+      axios
+        .get(
+          `https://api.themoviedb.org/3/movie/${this.$route.params.id}/similar?api_key=${process.env.VUE_APP_THEMOVIEDB_API_KEY}&language=en-US&page=1`
+        )
+        .then((res) => (this.similar = res.data.results));
     },
 
     goBack() {
