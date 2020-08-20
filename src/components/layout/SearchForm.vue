@@ -1,46 +1,40 @@
 <template>
-  <div class="uk-navbar-left">
-    <div class="uk-navbar-item">
-      <form @submit.prevent="onSubmit" class="uk-search uk-search-navbar">
-        <button uk-search-icon></button>
-        <input
-          class="uk-search-input"
-          type="search"
-          v-model="title"
-          placeholder="Search..."
-          @keyup.esc="onEscKey"
-          @keyup="updateDropdown"
-        />
-        <div
-          uk-dropdown
-          v-if="title !== ''"
-          :class="{ 'uk-open': title !== '' }"
+  <form @submit.prevent="onSubmit">
+    <div class="uk-inline">
+      <a class="uk-form-icon" type="submit" uk-icon="icon: search"></a>
+      <input
+        class="uk-input"
+        type="search"
+        v-model="title"
+        placeholder="Search..."
+        @keyup.esc="onEscKey"
+        @keyup="updateDropdown"
+      />
+      <div uk-dropdown v-if="title !== ''" :class="{ 'uk-open': title !== '' }">
+        <ul
+          v-if="
+            typeof searched !== 'undefined' ||
+              typeof searched.results !== 'undefined' ||
+              searched.results.length !== 0
+          "
+          class="uk-list uk-list-striped"
         >
-          <ul
-            v-if="
-              typeof searched !== 'undefined' ||
-                typeof searched.results !== 'undefined' ||
-                searched.results.length !== 0
-            "
-            class="uk-list uk-list-striped"
+          <li
+            @click="goToMovieInfoPage(search.id)"
+            v-for="search in searched.results"
+            :key="search.id"
+            class="movieBtn"
           >
-            <li
-              @click="goToMovieInfoPage(search.id)"
-              v-for="search in searched.results"
-              :key="search.id"
-              class="movieBtn"
-            >
-              <span v-if="search.name">{{ search.name }}</span>
-              <span v-else-if="search.title">{{ search.title }}</span>
-            </li>
-          </ul>
-          <ul v-else class="uk-list uk-list-striped">
-            <li>Loading...</li>
-          </ul>
-        </div>
-      </form>
+            <span v-if="search.name">{{ search.name }}</span>
+            <span v-else-if="search.title">{{ search.title }}</span>
+          </li>
+        </ul>
+        <ul v-else class="uk-list uk-list-striped">
+          <li>Loading...</li>
+        </ul>
+      </div>
     </div>
-  </div>
+  </form>
 </template>
 
 <script>
@@ -87,6 +81,9 @@ export default {
 </script>
 
 <style scoped>
+form div {
+  width: 100%;
+}
 .movieBtn {
   cursor: pointer;
   text-align: center;

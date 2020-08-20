@@ -1,40 +1,49 @@
 <template>
   <div class="bg-dark">
-    <nav class="navbar uk-margin-xlarge-left uk-margin-xlarge-right">
-      <span class="navbar-toggle" id="js-navbar-toggle">
-        <i class="fas fa-bars"></i>
-      </span>
-      <a href="#" class="logo">Movie Info Finder</a>
-      <ul class="main-nav" id="js-menu">
-        <li>
-          <a @click="goHome" class="nav-links">Home</a>
-        </li>
-        <li>
-          <a @click="goAbout" class="nav-links">About</a>
-        </li>
-        <li class="toggle-box mx-auto nav-links">
-          <input
-            type="checkbox"
-            id="toggle-box-checkbox"
-            @click="changeTheme"
-            :checked="theme === 'dark'"
-          />
-          <label
-            for="toggle-box-checkbox"
-            class="toggle-box-label-left"
-          ></label>
-          <label for="toggle-box-checkbox" class="toggle-box-label"></label>
-        </li>
-      </ul>
-    </nav>
+    <div class="uk-container">
+      <nav class="navbar">
+        <span class="navbar-toggle" id="js-navbar-toggle">
+          <i class="fas fa-bars"></i>
+        </span>
+        <span class="logo">Movie Info Finder</span>
+
+        <ul class="main-nav" id="js-menu">
+          <li>
+            <a @click="goHome" class="nav-links">Home</a>
+          </li>
+          <li>
+            <a @click="goAbout" class="nav-links">About</a>
+          </li>
+          <li class="toggle-box mx-auto nav-links">
+            <input
+              type="checkbox"
+              id="toggle-box-checkbox"
+              @click="changeTheme"
+              :checked="theme === 'dark'"
+            />
+            <label
+              for="toggle-box-checkbox"
+              class="toggle-box-label-left"
+            ></label>
+            <label for="toggle-box-checkbox" class="toggle-box-label"></label>
+          </li>
+          <li><SearchForm /></li>
+        </ul>
+      </nav>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import SearchForm from './SearchForm';
 
 export default {
   name: 'Navbar',
+
+  components: {
+    SearchForm,
+  },
 
   computed: {
     ...mapGetters({
@@ -63,6 +72,20 @@ export default {
 </script>
 
 <style scoped>
+address,
+dl,
+fieldset,
+figure,
+ol,
+p,
+pre,
+ul {
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  align-content: center;
+}
+
 .bg-dark {
   background-color: #222 !important;
 }
