@@ -1,20 +1,38 @@
 <template>
   <div class="bg-dark">
-    <div class="uk-container">
-      <nav class="navbar">
-        <span class="navbar-toggle" id="js-navbar-toggle">
-          <i class="fas fa-bars"></i>
-        </span>
-        <span class="logo">Movie Info Finder</span>
-
-        <ul class="main-nav" id="js-menu">
+    <nav class="uk-container uk-navbar">
+      <div class="uk-navbar-left">
+        <router-link to="/" class="uk-navbar-item uk-logo uk-visible@s">
+          Movie Info Finder
+        </router-link>
+        <ul class="uk-navbar-nav uk-visible@s">
           <li>
-            <a @click="goHome" class="nav-links">Home</a>
+            <router-link to="/" class="uk-text-bold">
+              Home
+            </router-link>
           </li>
           <li>
-            <a @click="goAbout" class="nav-links">About</a>
+            <router-link to="/about" class="uk-text-bold">
+              About
+            </router-link>
           </li>
-          <li class="toggle-box mx-auto nav-links">
+        </ul>
+      </div>
+      <div class="uk-navbar-right">
+        <ul class="uk-navbar-nav">
+          <li>
+            <a
+              href="#"
+              class="uk-text-large uk-navbar-toggle uk-hidden@s"
+              style="padding: 0; margin-right:10px"
+              uk-navbar-toggle-icon
+              uk-toggle="target: #sidenav"
+            />
+          </li>
+          <li style="display:flex;align-items:center">
+            <SearchForm />
+          </li>
+          <li class="toggle-box">
             <input
               type="checkbox"
               id="toggle-box-checkbox"
@@ -27,9 +45,29 @@
             ></label>
             <label for="toggle-box-checkbox" class="toggle-box-label"></label>
           </li>
-          <li><SearchForm /></li>
         </ul>
-      </nav>
+      </div>
+    </nav>
+
+    <!-- Mobile View -->
+    <div id="sidenav" uk-offcanvas class="uk-offcanvas">
+      <div class="uk-offcanvas-bar">
+        <router-link to="/" class="uk-navbar-item uk-logo uk-hidden@s">
+          Movie Info Finder
+        </router-link>
+        <ul class="uk-nav">
+          <li>
+            <router-link to="/" class="uk-text-large">
+              Home
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/about" class="uk-text-large">
+              About
+            </router-link>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -51,123 +89,21 @@ export default {
     }),
   },
 
-  mounted() {
-    let mainNav = document.getElementById('js-menu');
-    let navBarToggle = document.getElementById('js-navbar-toggle');
-    navBarToggle.addEventListener('click', function() {
-      mainNav.classList.toggle('active');
-    });
-  },
-
   methods: {
     ...mapActions(['changeTheme']),
-    goHome() {
-      this.$router.push({ name: 'Home' });
-    },
-    goAbout() {
-      this.$router.push({ name: 'About' });
-    },
   },
 };
 </script>
 
 <style scoped>
-address,
-dl,
-fieldset,
-figure,
-ol,
-p,
-pre,
-ul {
-  margin: 0;
-  padding: 0;
-  align-items: center;
-  align-content: center;
-}
-
 .bg-dark {
   background-color: #222 !important;
 }
 
-.navbar {
-  font-size: 18px;
-  background-color: #222 !important;
-  padding-bottom: 10px;
-}
-
-.main-nav {
-  list-style-type: none;
-  display: none;
-}
-
-.nav-links,
-.logo {
-  text-decoration: none;
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.main-nav li {
-  text-align: center;
-  margin: 15px auto;
-}
-
-.logo {
-  display: inline-block;
-  font-size: 22px;
-  margin-top: 10px;
-  margin-left: 20px;
-}
-
-.navbar-toggle {
-  position: absolute;
-  top: 10px;
-  right: 20px;
-  cursor: pointer;
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 24px;
-}
-
-.active {
-  display: block;
-}
-
-@media screen and (min-width: 768px) {
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    padding-bottom: 0;
-    height: 70px;
-    align-items: center;
-  }
-
-  .main-nav {
-    display: flex;
-    margin-right: 30px;
-    flex-direction: row;
-    justify-content: flex-end;
-  }
-
-  .main-nav li {
-    margin: 0;
-  }
-
-  .nav-links {
-    margin-left: 40px;
-  }
-
-  .logo {
-    margin-top: 0;
-  }
-
-  .navbar-toggle {
-    display: none;
-  }
-
-  .logo:hover,
-  .nav-links:hover {
-    color: rgba(255, 255, 255, 1);
-  }
+.toggle-box {
+  display: flex;
+  align-items: center;
+  align-content: center;
 }
 
 .toggle-box-label-left:empty {

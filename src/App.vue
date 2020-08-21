@@ -49,6 +49,10 @@ body {
   overflow-x: hidden;
 }
 
+form {
+  border: 1px solid #1a1919;
+}
+
 .theme-dark {
   background-color: #1a1919;
   color: #fff !important;
@@ -82,6 +86,21 @@ body {
 .theme-dark .uk-card-default {
   background-color: #242222;
   color: #fff9f9 !important;
+}
+
+.theme-dark .uk-form-icon {
+  background-color: #242222;
+  color: #fff9f9 !important;
+}
+
+.theme-dark .uk-input {
+  background-color: #242222;
+  color: #fff9f9 !important;
+  border: none;
+}
+
+.theme-dark form {
+  border: 1px solid #fff9f9;
 }
 
 .theme-dark .uk-card-title {
